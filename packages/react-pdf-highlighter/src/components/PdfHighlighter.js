@@ -134,7 +134,7 @@ class PdfHighlighter<T_HT: T_Highlight> extends PureComponent<
       const { ownerDocument: doc } = ref;
       eventBus.on("textlayerrendered", this.onTextLayerRendered);
       eventBus.on("pagesinit", this.onDocumentReady);
-      doc.addEventListener("selectionchange", this.onSelectionChange);
+      // doc.addEventListener("selectionchange", this.onSelectionChange);
       doc.addEventListener("keydown", this.handleKeyDown);
       doc.defaultView.addEventListener("resize", this.debouncedScaleValue);
       if (observer) observer.observe(ref);
@@ -142,7 +142,7 @@ class PdfHighlighter<T_HT: T_Highlight> extends PureComponent<
       this.unsubscribe = () => {
         eventBus.off("pagesinit", this.onDocumentReady);
         eventBus.off("textlayerrendered", this.onTextLayerRendered);
-        doc.removeEventListener("selectionchange", this.onSelectionChange);
+        // doc.removeEventListener("selectionchange", this.onSelectionChange);
         doc.removeEventListener("keydown", this.handleKeyDown);
         doc.defaultView.removeEventListener("resize", this.debouncedScaleValue);
         if (observer) observer.disconnect();
@@ -440,7 +440,8 @@ class PdfHighlighter<T_HT: T_Highlight> extends PureComponent<
       range
     });
 
-    this.debouncedAfterSelection();
+    // this.debouncedAfterSelection();
+    this.afterSelection();
   };
 
   onScroll = () => {
@@ -544,14 +545,14 @@ class PdfHighlighter<T_HT: T_Highlight> extends PureComponent<
     const { onSelectionFinished, enableAreaSelection } = this.props;
 
     return (
-      <Pointable onPointerDown={this.onMouseDown}>
+      <Pointable onPointerDown={this.onMouseDown} onPointerUp={this.onSelectionChange}>
         <div
           ref={this.attachRef}
           className="PdfHighlighter"
           onContextMenu={e => e.preventDefault()}
         >
           <div className="pdfViewer" />
-          {typeof enableAreaSelection === "function" ? (
+          {/* {typeof enableAreaSelection === "function" ? (
             <MouseSelection
               onDragStart={() => this.toggleTextSelection(true)}
               onDragEnd={() => this.toggleTextSelection(false)}
@@ -611,7 +612,7 @@ class PdfHighlighter<T_HT: T_Highlight> extends PureComponent<
                 );
               }}
             />
-          ) : null}
+          ) : null} */}
         </div>
       </Pointable>
     );
