@@ -26,7 +26,7 @@ import type {
 
 import "./style/App.css";
 
-setPdfWorker(PDFWorker);
+// setPdfWorker(PDFWorker);
 
 type Props = {};
 
@@ -90,6 +90,9 @@ class App extends Component<Props, State> {
     const highlight = this.getHighlightById(parseIdFromHash());
 
     if (highlight) {
+      console.log(highlight)
+      console.log(this.scrollViewerTo)
+
       this.scrollViewerTo(highlight);
     }
   };
@@ -166,6 +169,7 @@ class App extends Component<Props, State> {
                 onScrollChange={resetHash}
                 // pdfScaleValue="page-width"
                 scrollRef={scrollTo => {
+                  console.log('scrollRef')
                   this.scrollViewerTo = scrollTo;
 
                   this.scrollToHighlightFromHash();
@@ -175,7 +179,9 @@ class App extends Component<Props, State> {
                   content,
                   hideTipAndSelection,
                   transformSelection
-                ) => (
+                ) => {
+                  console.log(position)
+                  return (
                   <Tip
                     onOpen={transformSelection}
                     onConfirm={comment => {
@@ -184,7 +190,7 @@ class App extends Component<Props, State> {
                       hideTipAndSelection();
                     }}
                   />
-                )}
+                )}}
                 highlightTransform={(
                   highlight,
                   index,
