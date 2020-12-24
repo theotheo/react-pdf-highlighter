@@ -168,7 +168,7 @@ class PdfHighlighter<T_HT: T_Highlight> extends PureComponent<
       new PDFViewer({
         container: this.containerNode,
         eventBus: this.eventBus,
-        enhanceTextSelection: true,
+        textLayerMode: 2,
         removePageBorders: true,
         linkService: this.linkService
       });
@@ -545,7 +545,10 @@ class PdfHighlighter<T_HT: T_Highlight> extends PureComponent<
     const { onSelectionFinished, enableAreaSelection } = this.props;
 
     return (
-      <Pointable onPointerDown={this.onMouseDown} onPointerUp={this.onSelectionChange}>
+      <Pointable
+        onPointerDown={this.onMouseDown}
+        onPointerUp={this.onSelectionChange}
+      >
         <div
           ref={this.attachRef}
           className="PdfHighlighter"
