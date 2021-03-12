@@ -492,7 +492,7 @@ class PdfHighlighter<T_HT: T_Highlight> extends PureComponent<
       return;
     }
 
-    const rects = getClientRects(range, page.node);
+    const rects = getClientRects(range, page.node, false);
 
     if (rects.length === 0) {
       return;
